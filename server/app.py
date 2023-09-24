@@ -2,6 +2,7 @@
 
 from flask import Flask, make_response
 from flask_migrate import Migrate
+from flask import render_template
 
 from models import db, Zookeeper, Enclosure, Animal
 
@@ -19,16 +20,16 @@ def home():
 
 @app.route('/animal/<int:id>')
 def animal_by_id(id):
-    return ''
+    animal = Animal.query.get_or_404(id)
+    return render_template('animal.html', animal=animal)
 
 @app.route('/zookeeper/<int:id>')
 def zookeeper_by_id(id):
-    return ''
+    zookeeper = Zookeeper.query.get_or_404(id)
+    return render_template('zookeeper.html', zookeeper=zookeeper)
 
 @app.route('/enclosure/<int:id>')
 def enclosure_by_id(id):
-    return ''
+    enclosure = Enclosure.query.get_or_404(id)
+    return render_template('enclosure.html', enclosure=enclosure)
 
-
-if __name__ == '__main__':
-    app.run(port=5555, debug=True)
